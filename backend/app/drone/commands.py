@@ -1,21 +1,40 @@
 from dronekit import VehicleMode
-from app.drone.connection import connect_vehicle
+
+from app.drone.vehicle import get_vehicle
+
 
 def arm_drone():
-    vehicle = connect_vehicle()
+
+    vehicle = get_vehicle()
+
+    if vehicle is None:
+        return {
+            "success": False,
+            "message": "Drone not connected"
+        }
 
     # vehicle.mode = VehicleMode("GUIDED")
     vehicle.armed = True
 
     return {
-        "status": "arming"
+        "success": True,
+        "message": "Drone armed"
     }
 
+
 def disarm_drone():
-    vehicle = connect_vehicle()
+
+    vehicle = get_vehicle()
+
+    if vehicle is None:
+        return {
+            "success": False,
+            "message": "Drone not connected"
+        }
 
     vehicle.armed = False
 
     return {
-        "status": "disarming"
+        "success": True,
+        "message": "Drone disarmed"
     }

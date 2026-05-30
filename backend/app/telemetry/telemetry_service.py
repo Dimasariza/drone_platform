@@ -3,6 +3,7 @@ import time
 
 from app.drone.connection import connect_vehicle
 from app.state.drone_state import drone_state
+from app.drone.vehicle import set_vehicle
 
 vehicle_instance = None
 
@@ -13,15 +14,16 @@ def telemetry_loop():
     global vehicle_instance
 
     while True:
-
         try:
-
             # reconnect
             if vehicle_instance is None:
 
                 print("Connecting to drone...")
 
                 vehicle_instance = connect_vehicle()
+
+                if vehicle_instance:
+                    set_vehicle(vehicle_instance)
 
                 print("Drone connected!")
 
@@ -33,7 +35,7 @@ def telemetry_loop():
 
             heartbeat = vehicle.last_heartbeat
 
-            drone_state["connected"] = (
+            drone_state.connected = (
                 heartbeat is not None
                 and heartbeat < HEARTBEAT_TIMEOUT
             )
@@ -42,15 +44,15 @@ def telemetry_loop():
             # basic state
             # -------------------------
 
-            drone_state["mode"] = vehicle.mode.name
-            drone_state["armed"] = vehicle.armed
-            drone_state["is_armable"] = vehicle.is_armable
+            drone_state.mode = vehicle.mode.name
+            drone_state.armed = vehicle.armed
+            drone_state.is_armable = vehicle.is_armable
 
             # -------------------------
             # system status
             # -------------------------
 
-            drone_state["system_status"] = (
+            drone_state.system_status = (
                 vehicle.system_status.state
             )
 
@@ -60,7 +62,7 @@ def telemetry_loop():
 
             if vehicle.battery:
 
-                drone_state["battery"] = {
+                drone_state.battery = {
                     "voltage": vehicle.battery.voltage,
                     "current": vehicle.battery.current,
                     "level": vehicle.battery.level,
@@ -72,7 +74,7 @@ def telemetry_loop():
 
             if vehicle.gps_0:
 
-                drone_state["gps"] = {
+                drone_state.gps = {
                     "fix_type": vehicle.gps_0.fix_type,
                     "satellites": vehicle.gps_0.satellites_visible,
                 }
@@ -85,7 +87,7 @@ def telemetry_loop():
 
             if location:
 
-                drone_state["location"] = {
+                drone_state.location = {
                     "lat": location.lat,
                     "lon": location.lon,
                     "alt": location.alt,
@@ -95,11 +97,11 @@ def telemetry_loop():
             # velocity
             # -------------------------
 
-            drone_state["velocity"] = vehicle.velocity
+            drone_state.velocity = vehicle.velocity
 
-            drone_state["groundspeed"] = vehicle.groundspeed
+            drone_state.groundspeed = vehicle.groundspeed
 
-            drone_state["airspeed"] = vehicle.airspeed
+            drone_state.airspeed = vehicle.airspeed
 
             # -------------------------
             # attitude
@@ -107,7 +109,7 @@ def telemetry_loop():
 
             if vehicle.attitude:
 
-                drone_state["attitude"] = {
+                drone_state.attitude = {
                     "pitch": vehicle.attitude.pitch,
                     "roll": vehicle.attitude.roll,
                     "yaw": vehicle.attitude.yaw,
@@ -117,13 +119,13 @@ def telemetry_loop():
             # heading
             # -------------------------
 
-            drone_state["heading"] = vehicle.heading
+            drone_state.heading = vehicle.heading
 
         except Exception as e:
 
             print("Telemetry Error:", e)
 
-            drone_state["connected"] = False
+            drone_state.connected = False
 
             vehicle_instance = None
 

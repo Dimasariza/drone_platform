@@ -1,7 +1,6 @@
 from fastapi import APIRouter
 
 from app.drone.commands import arm_drone, disarm_drone
-from app.state.drone_state import drone_state
 
 router = APIRouter()
 

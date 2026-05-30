@@ -14,7 +14,9 @@ async def websocket_telemetry(websocket: WebSocket):
     try:
         while True:
 
-            await websocket.send_json(drone_state)
+            await websocket.send_json(
+                drone_state.model_dump()
+            )
 
             await asyncio.sleep(1)
 

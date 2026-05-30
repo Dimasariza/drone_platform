@@ -1,6 +1,7 @@
 import collections
 import collections.abc
 import os
+import logging
 
 collections.MutableMapping = collections.abc.MutableMapping
 
@@ -8,7 +9,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.telemetry.telemetry_service import start_telemetry
-from app.api.routes import ws, video, telemetry, drone
+from app.api.routes import ws, video, drone, movement, test, telemetry
+
+# suppress dronekit logging
+# logging.getLogger("dronekit").setLevel(logging.CRITICAL)
+# logging.getLogger("dronekit.mavlink").setLevel(logging.CRITICAL)
 
 app = FastAPI(
     title="Drone Platform API",
@@ -29,7 +34,9 @@ def startup_event():
 
 app.include_router(drone.router)
 app.include_router(ws.router)
-app.include_router(video.router)
+app.include_router(movement.router)
+app.include_router(test.router)
+# app.include_router(video.router)
 app.include_router(telemetry.router)
 
 @app.get("/")
