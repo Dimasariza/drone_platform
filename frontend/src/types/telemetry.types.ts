@@ -6,37 +6,45 @@ export interface BatteryData {
 
 export interface GPSData {
   fix_type: number
-  satellites_visible: number
+  satellites: number
 }
 
-export interface PositionData {
+export interface LocationData {
   lat: number
   lon: number
   alt: number
 }
 
-export interface VelocityData {
-  x: number
-  y: number
-  z: number
+export interface AttitudeData {
+  pitch: number
+  roll: number
+  yaw: number
 }
 
 export interface TelemetryData {
   connected: boolean
 
+  armed: boolean
+
+  is_armable: boolean
+
   mode: string
 
-  armed: boolean
+  system_status: string
+
+  heading: number
+
+  groundspeed: number
+
+  airspeed: number
+
+  velocity: number[]
 
   battery: BatteryData
 
   gps: GPSData
 
-  position: PositionData
+  location: LocationData
 
-  heading: number
-
-  velocity: VelocityData
-
-  timestamp: string
+  attitude: AttitudeData
 }

@@ -12,7 +12,6 @@ interface TelemetryState {
 export const useTelemetryStore =
   create<TelemetryState>((set) => ({
     telemetry: null,
-
     connected: false,
 
     setTelemetry: (data) =>

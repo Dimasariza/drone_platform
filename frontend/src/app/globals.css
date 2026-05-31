@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "leaflet/dist/leaflet.css";
+@import "leaflet/dist/leaflet.css";
+@import "leaflet-fullscreen/dist/leaflet.fullscreen.css";
 
 @custom-variant dark (&:is(.dark *));
 
