@@ -20,13 +20,15 @@ export default function NavigationPanel() {
             label="Speed"
             value="15 m/s"
           />
+
           <FlightInformation
-            label="Speed"
-            value="15 m/s"
+            label="Height"
+            value="20 m"
           />
+
           <FlightInformation
-            label="Speed"
-            value="15 m/s"
+            label="Flight Time"
+            value="17.10"
           />
         </div>
 

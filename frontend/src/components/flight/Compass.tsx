@@ -10,7 +10,7 @@ export const FlightCompass: React.FC<CompassProps> = ({ yawDeg }) => {
   const normalizedYaw = ((yawDeg % 360) + 360) % 360;
 
   return (
-    <div className="flex items-center justify-center p-2">
+    <div className="flex items-center justify-center">
       {/* OUTER GLASS CARD CONTAINER (From your SVG styles) */}
       <div className="relative flex size-60 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-black/50 p-4 shadow-2xl backdrop-blur-xl">
 

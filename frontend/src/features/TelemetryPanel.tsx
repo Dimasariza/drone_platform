@@ -14,8 +14,7 @@ export default function TelemetryPanel({
   const roll = telemetry?.attitude?.roll;
   return (
     <div className="w-full h-full rounded-xl border border-white/10 bg-black/40 p-6 backdrop-blur-md flex gap-2 justify-center">
-
-      <div>
+      <div className="flex flex-col gap-4">
         <AttitudeIndicator
           pitch={pitch ?? 0}
           roll={roll ?? 0}
@@ -33,7 +32,6 @@ export default function TelemetryPanel({
 
       <div>
         <FlightCompass yawDeg={telemetry?.attitude?.yaw ?? 0} />
-
       </div>
     </div>
   )

@@ -10,7 +10,7 @@ export const AttitudeIndicator: React.FC<AttitudeIndicatorProps> = ({ pitch, rol
   const pitchTranslation = pitch * 4;
 
   return (
-    <div className="flex items-center justify-center p-2">
+    <div className="flex items-center justify-center">
       {/* OUTER GLASS CARD CONTAINER (Matches your Compass Style) */}
       <div className="relative flex size-60 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-black/50 p-4 shadow-2xl backdrop-blur-xl">
 
@@ -41,42 +41,42 @@ export const AttitudeIndicator: React.FC<AttitudeIndicatorProps> = ({ pitch, rol
               {/* Pitch +30 */}
               <div className="absolute flex items-center justify-between w-24 -translate-y-15">
                 <span>30</span>
-                <div className="h-0.5 w-20 bg-white" />
+                <div className="h-0.25 w-16 bg-white" />
                 <span>30</span>
               </div>
 
               {/* Pitch +20 */}
               <div className="absolute flex items-center justify-between w-21 -translate-y-10">
                 <span>20</span>
-                <div className="h-0.5 w-14 bg-white" />
+                <div className="h-0.25 w-12 bg-white" />
                 <span>20</span>
               </div>
 
               {/* Pitch +10 */}
               <div className="absolute flex items-center justify-between w-15 -translate-y-5">
                 <span>10</span>
-                <div className="h-0.5 w-8 bg-white" />
+                <div className="h-0.25 w-6 bg-white" />
                 <span>10</span>
               </div>
 
               {/* Pitch -10 */}
               <div className="absolute flex items-center justify-between w-15 translate-y-5">
                 <span>-10</span>
-                <div className="h-0.5 w-8 bg-white" />
+                <div className="h-0.25 w-6 bg-white" />
                 <span>-10</span>
               </div>
 
               {/* Pitch -20 */}
               <div className="absolute flex items-center justify-between w-21 translate-y-10">
                 <span>-20</span>
-                <div className="h-0.5 w-14 bg-white" />
+                <div className="h-0.25 w-12 bg-white" />
                 <span>-20</span>
               </div>
 
               {/* Pitch -30 */}
               <div className="absolute flex items-center justify-between w-24 translate-y-15">
                 <span>-30</span>
-                <div className="h-0.5 w-20 bg-white" />
+                <div className="h-0.25 w-16 bg-white" />
                 <span>-30</span>
               </div>
             </div>
