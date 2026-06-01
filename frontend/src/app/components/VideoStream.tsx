@@ -1,9 +1,15 @@
+import Image from "next/image"
+
 export default function VideoStream() {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL
   return (
-    <img
-      src={apiUrl ? `${apiUrl}/video` : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl-FLywm282DN-CuGQ2Yf_RLvNO2gdYaHW7w&s"}
-      className="rounded-xl"
+    <Image
+      alt="Streaming Drone Video"
+      src={apiUrl ? `${apiUrl}/video` : "https://cdn.britannica.com/88/160888-050-F34A4160/Rip-current-sandbars.jpg"}
+      className="rounded-xl h-auto"
+      width={"800"}
+      height={"800"}
+      loading="eager"
     />
   )
 }

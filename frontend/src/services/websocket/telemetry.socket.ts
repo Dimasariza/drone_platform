@@ -1,6 +1,6 @@
 import { useTelemetryStore } from "@/store/telemetry.store"
 import { toast } from "sonner"
-    
+
 export const createTelemetrySocket = () => {
   const socket = new WebSocket(
     process.env.NEXT_PUBLIC_WS_URL!
@@ -26,7 +26,7 @@ export const createTelemetrySocket = () => {
 
   socket.onclose = () => {
     console.log("Telemetry WebSocket Closed")
-    toast.success("Telemetry Disconnected")
+    toast.info("Telemetry Disconnected")
     setConnected(false)
   }
 

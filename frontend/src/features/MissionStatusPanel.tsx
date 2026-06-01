@@ -6,30 +6,30 @@ import { Separator } from "@/components/ui/separator";
 export default function MissionStatusPanel({
     connected = false
 }) {
-  return (
-    <>
-        <div className="w-full h-full rounded-2xl border border-white/10 bg-black/40 p-6 backdrop-blur-md">
-			<div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold text-white">
-                    Autonomous UAV Dashboard
-                </h1>
+    return (
+        <>
+            <div className="w-full h-full rounded-xl border border-white/10 bg-black/40 p-6 backdrop-blur-md">
+                <div className="flex justify-between items-center">
+                    <h1 className="text-2xl font-bold text-white">
+                        Autonomous UAV Dashboard
+                    </h1>
 
-                <StatusBadge connected={connected} />
-			</div>
+                    <StatusBadge connected={connected} />
+                </div>
 
-			<p className="text-gray-500 mt-2">
-				Maritime AI Surveillance Platform
-			</p>
+                <p className="text-gray-500 mt-2">
+                    Maritime AI Surveillance Platform
+                </p>
 
-			{/* Horizontal Divider */}
-            <Separator className="my-4 bg-white/10" />
+                {/* Horizontal Divider */}
+                <Separator className="my-4 bg-white/10" />
 
-			<BatteryBar />
+                <BatteryBar />
 
-            <Separator className="my-4 bg-white/10" />
+                <Separator className="my-4 bg-white/10" />
 
-            <DroneActions />
-		</div>
-    </>
-  )
+                <DroneActions />
+            </div>
+        </>
+    )
 }

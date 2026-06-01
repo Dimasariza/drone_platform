@@ -15,16 +15,12 @@ import MissionStatusPanel from "@/features/MissionStatusPanel"
 import NavigationPanel from "@/features/NavigationPanel"
 import TelemetryPanel from "@/features/TelemetryPanel"
 
-
 export default function DashboardPage() {
   const { telemetry, connected } =
     useTelemetryStore()
 
   return (
-    <div className="grid grid-cols-12 gap-4 h-screen p-6 bg-gradient-to-br from-black via-zinc-900 to-black">
-      <div className="col-span-8">
-        <PrimaryFlightView />
-      </div>
+    <div className="grid grid-cols-12 gap-3 h-screen p-3 bg-linear-to-br from-black via-zinc-900 to-black">
 
       <div className="col-span-4">
         <MissionStatusPanel connected={connected} />
@@ -36,6 +32,10 @@ export default function DashboardPage() {
 
       <div className="col-span-4">
         <TelemetryPanel telemetry={telemetry} />
+      </div>
+
+      <div className="col-span-8">
+        <PrimaryFlightView />
       </div>
 
       {/* <FlightIndicator

@@ -1,8 +1,16 @@
-export default function FlightInformation() {
+type Props = {
+  label?: string;
+  value?: string;
+}
+
+export default function FlightInformation({
+  label,
+  value
+}: Props) {
   return (
     <div>
-        <p className="text-xs font-bold text-white mb-4">Speed</p>
-        <span className="text-lg font-bold text-white">15 m/s</span>
+      <p className="text-xs text-white">{label}</p>
+      <span className="text-md font-bold text-white">{value}</span>
     </div>
   )
 }
