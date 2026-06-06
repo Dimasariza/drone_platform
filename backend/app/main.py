@@ -8,8 +8,11 @@ collections.MutableMapping = collections.abc.MutableMapping
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.telemetry.telemetry_service import start_telemetry
-from app.api.routes import ws, video, drone, movement, test, telemetry, motor
+from app.database.database import engine
+from app.database.models import Base
+
+# from app.telemetry.telemetry_service import start_telemetry
+# from app.api.routes import ws, video, drone, movement, test, telemetry, motor
 
 # suppress dronekit logging
 # logging.getLogger("dronekit").setLevel(logging.CRITICAL)
@@ -30,15 +33,17 @@ app.add_middleware(
 
 @app.on_event("startup")
 def startup_event():
-    start_telemetry()
+    # start_telemetry()
+    Base.metadata.create_all(bind=engine)
+    pass
 
-app.include_router(drone.router)
-app.include_router(ws.router)
-app.include_router(movement.router)
-app.include_router(test.router)
-app.include_router(video.router)
-app.include_router(telemetry.router)
-app.include_router(motor.router)
+# app.include_router(drone.router)
+# app.include_router(ws.router)
+# app.include_router(movement.router)
+# app.include_router(test.router)
+# app.include_router(video.router)
+# app.include_router(telemetry.router)
+# app.include_router(motor.router)
 
 @app.get("/")
 def root():
