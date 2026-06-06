@@ -26,6 +26,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { useTelemetryStore } from "@/store/telemetry.store"
 
 const menus = [
   {
@@ -42,7 +43,7 @@ const menus = [
 
   {
     title: "Mission Planner",
-    url: "/mission",
+    url: "/mission-planner",
     icon: Map,
   },
 
@@ -91,6 +92,9 @@ const menus = [
 
 export function AppSidebar() {
   const pathname = usePathname()
+
+    const { connected } =
+      useTelemetryStore()
 
   return (
     <Sidebar
@@ -184,13 +188,13 @@ export function AppSidebar() {
         "
       >
         <div
-          className="
+          className={`
+            ${connected ? "bg-green-500" : "bg-red-500"}
             w-3
             h-3
             rounded-full
-            bg-red-500
             animate-pulse
-          "
+          `}
         />
       </SidebarFooter>
     </Sidebar>

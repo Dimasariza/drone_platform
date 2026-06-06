@@ -1,3 +1,4 @@
+import { useSmoothValue } from '@/hooks/useSmoothValue';
 import React from 'react';
 
 // Assuming yawDeg is passed as a prop or available in state
@@ -7,7 +8,10 @@ interface CompassProps {
 
 export const FlightCompass: React.FC<CompassProps> = ({ yawDeg }) => {
   // Safe normalization of degrees between 0 and 359.
-  const normalizedYaw = ((yawDeg % 360) + 360) % 360;
+  const smoothYaw = useSmoothValue(yawDeg, 0.06)
+
+  const normalizedYaw =
+  ((smoothYaw % 360) + 360) % 360
 
   return (
     <div className="flex items-center justify-center">
@@ -84,22 +88,106 @@ export const FlightCompass: React.FC<CompassProps> = ({ yawDeg }) => {
             <div className="h-0 w-0 border-l-[6px] border-r-[6px] border-t-8 border-l-transparent border-r-transparent border-t-red-500" />
           </div>
 
-          {/* CENTER DISPLAY GLASS BOX (Digital HUD) */}
-          <div className="absolute left-1/2 top-1/2 z-10 flex h-14 w-18 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-2xl border border-white/10 bg-zinc-950/80 shadow-lg shadow-black/40 backdrop-blur-md">
-            <span className="text-md font-bold font-mono tracking-tight text-white">
-              {Math.round(normalizedYaw).toString().padStart(3, '0')}°
-            </span>
-            <span className="text-xs font-bold uppercase tracking-widest text-zinc-400">
-              {normalizedYaw >= 337.5 || normalizedYaw < 22.5 ? 'North' :
-                normalizedYaw >= 22.5 && normalizedYaw < 67.5 ? 'NE' :
-                  normalizedYaw >= 67.5 && normalizedYaw < 112.5 ? 'East' :
-                    normalizedYaw >= 112.5 && normalizedYaw < 157.5 ? 'SE' :
-                      normalizedYaw >= 157.5 && normalizedYaw < 202.5 ? 'South' :
-                        normalizedYaw >= 202.5 && normalizedYaw < 247.5 ? 'SW' :
-                          normalizedYaw >= 247.5 && normalizedYaw < 292.5 ? 'West' : 'NW'}
-            </span>
-          </div>
+          {/* CENTER AIRCRAFT MARKER */}
+          <div
+            className="
+              absolute
+              left-1/2
+              top-1/2
+              z-20
+              -translate-x-1/2
+              -translate-y-1/2
+              pointer-events-none
+            "
+          >
+            {/* OUTER RADAR RING */}
+            <div
+              className="
+                relative
+                flex
+                items-center
+                justify-center
+                size-24
+                rounded-full
+                border
+                border-white/10
+                bg-black/40
+                backdrop-blur-md
+                shadow-lg
+                shadow-black/40
+              "
+            >
+              {/* INNER RING */}
+              <div
+                className="
+                  absolute
+                  size-14
+                  rounded-full
+                  border
+                  border-white/10
+                "
+              />
 
+              {/* HEADING LINE */}
+              <div
+                className="
+                  absolute
+                  w-[2px]
+                  h-16
+                  bg-white/70
+                  rounded-full
+                "
+              />
+
+              {/* HORIZONTAL STABILIZER LINE */}
+              <div
+                className="
+                  absolute
+                  w-12
+                  h-[2px]
+                  bg-white/40
+                  rounded-full
+                "
+              />
+
+              {/* AIRCRAFT TRIANGLE */}
+              <div
+                className="
+                  absolute
+                  flex
+                  items-center
+                  justify-center
+                  -translate-y-1/4
+                "
+              >
+                <div
+                  className="
+                    w-0
+                    h-0
+                    border-l-[10px]
+                    border-r-[10px]
+                    border-b-[18px]
+                    border-l-transparent
+                    border-r-transparent
+                    border-b-white
+                    drop-shadow-[0_0_6px_rgba(255,255,255,0.5)]
+                  "
+                />
+              </div>
+
+              {/* CENTER CORE */}
+              {/* <div
+                className="
+                  absolute
+                  w-3
+                  h-3
+                  rounded-full
+                  bg-white
+                  shadow-[0_0_12px_rgba(255,255,255,0.8)]
+                "
+              /> */}
+            </div>
+          </div>
         </div>
       </div>
     </div>

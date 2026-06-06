@@ -1,4 +1,4 @@
-import VideoStream from "@/app/components/VideoStream";
+import VideoStream from "@/features/dashboard/components/VideoStream";
 
 export default function PrimaryFlightView() {
   return (

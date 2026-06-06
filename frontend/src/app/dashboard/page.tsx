@@ -1,33 +1,30 @@
 "use client"
 
-import StatusBadge from "../components/StatusBadge"
-import BatteryBar from "../components/BatteryBar"
-import VideoStream from "../components/VideoStream"
 import { useTelemetryStore } from "@/store/telemetry.store"
-import FlightIndicator from "../components/FlightIndicator"
-import { Button } from "@/components/ui/button"
-import { land, takeoff } from "@/services/drone/movement.service"
-import { AttitudeIndicator } from "@/components/flight/AttitudeIndicator"
-import { FlightCompass } from "@/components/flight/Compass"
-import dynamic from "next/dynamic"
-import PrimaryFlightView from "@/features/PrimaryFlightView"
-import MissionStatusPanel from "@/features/MissionStatusPanel"
-import NavigationPanel from "@/features/NavigationPanel"
-import TelemetryPanel from "@/features/TelemetryPanel"
+import PrimaryFlightView from "@/features/dashboard/panel/PrimaryFlightView"
+import MissionStatusPanel from "@/features/dashboard/panel/MissionStatusPanel"
+import NavigationPanel from "@/features/dashboard/panel/NavigationPanel"
+import TelemetryPanel from "@/features/dashboard/panel/TelemetryPanel"
 
 export default function DashboardPage() {
   const { telemetry, connected } =
     useTelemetryStore()
 
+  console.log("Telemetry in DashboardPage:", telemetry)
+
   return (
     <div className="grid grid-cols-12 gap-3 h-screen p-3 bg-linear-to-br from-black via-zinc-900 to-black">
 
       <div className="col-span-4">
-        <MissionStatusPanel connected={connected} />
+        <MissionStatusPanel 
+          connected={connected} 
+          battery={telemetry?.battery} 
+          rc={telemetry?.rc}
+        />
       </div>
 
       <div className="col-span-8">
-        <NavigationPanel />
+        <NavigationPanel telemetry={telemetry} />
       </div>
 
       <div className="col-span-4">

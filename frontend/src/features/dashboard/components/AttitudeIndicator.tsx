@@ -1,3 +1,4 @@
+import { useSmoothValue } from '@/hooks/useSmoothValue';
 import React from 'react';
 
 interface AttitudeIndicatorProps {
@@ -7,7 +8,10 @@ interface AttitudeIndicatorProps {
 
 export const AttitudeIndicator: React.FC<AttitudeIndicatorProps> = ({ pitch, roll }) => {
   // 1 degree of pitch equals roughly 4 pixels of vertical translation
-  const pitchTranslation = pitch * 4;
+  const smoothPitch = useSmoothValue(pitch, 0.08)
+  const smoothRoll = useSmoothValue(roll, 0.08)
+
+  const pitchTranslation = smoothPitch * 4
 
   return (
     <div className="flex items-center justify-center">
@@ -23,7 +27,10 @@ export const AttitudeIndicator: React.FC<AttitudeIndicatorProps> = ({ pitch, rol
           <div
             className="absolute inset-0 h-full w-full transition-transform duration-100 ease-out"
             style={{
-              transform: `rotate(${-roll}deg) translateY(${pitchTranslation}px)`,
+              transform: `
+                rotate(${-smoothRoll}deg)
+                translateY(${pitchTranslation}px)
+              `,
               transformOrigin: "center center",
             }}
           >
@@ -141,19 +148,6 @@ export const AttitudeIndicator: React.FC<AttitudeIndicatorProps> = ({ pitch, rol
               />
             </svg>
           </div>
-
-          {/* DIGITAL DATA DISPLAY HUD (Matches your Compass Style) */}
-          {/* <div className="absolute bottom-4 left-1/2 z-30 flex h-14 w-40 -translate-x-1/2 items-center justify-around rounded-xl border border-white/10 bg-zinc-950/80 px-2 text-center shadow-lg backdrop-blur-md font-mono">
-            <div className="flex flex-col">
-              <span className="text-[9px] uppercase tracking-wider text-zinc-400 font-bold">Pitch</span>
-              <span className="text-sm font-bold text-white">{pitch.toFixed(1)}°</span>
-            </div>
-            <div className="h-6 w-px bg-white/10" />
-            <div className="flex flex-col">
-              <span className="text-[9px] uppercase tracking-wider text-zinc-400 font-bold">Roll</span>
-              <span className="text-sm font-bold text-white">{roll.toFixed(1)}°</span>
-            </div>
-          </div> */}
 
         </div>
       </div>

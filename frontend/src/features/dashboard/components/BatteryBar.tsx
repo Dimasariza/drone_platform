@@ -1,15 +1,17 @@
+import { BatteryData } from "@/types/telemetry.types"
+
 type Props = {
-  value?: number
+  battery?: BatteryData
 }
 
 export default function BatteryBar({
-  value = 0
+  battery,
 }: Props) {
   return (
     <div className="w-full">
       <div className="flex justify-between mb-1 text-white">
         <span>Battery</span>
-        <span>{value}%</span>
+        <span>{battery?.level ?? 0}%</span>
       </div>
 
       <div className="w-full bg-gray-200 rounded-full h-4">
@@ -19,7 +21,7 @@ export default function BatteryBar({
             transition-all duration-500
           "
           style={{
-            width: `${value}%`
+            width: `${battery?.level ?? 0}%`
           }}
         />
       </div>

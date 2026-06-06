@@ -1,7 +1,7 @@
 "use client"
 
-import { AttitudeIndicator } from "@/components/flight/AttitudeIndicator"
-import { FlightCompass } from "@/components/flight/Compass"
+import { AttitudeIndicator } from "@/features/dashboard/components/AttitudeIndicator"
+import { FlightCompass } from "@/features/dashboard/components/Compass"
 
 interface FlightIndicatorProps {
   pitch: number

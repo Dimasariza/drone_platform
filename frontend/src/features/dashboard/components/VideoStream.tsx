@@ -1,7 +1,5 @@
 "use client"
 
-import Image from "next/image"
-
 import { useEffect, useState } from "react"
 
 import {
@@ -178,6 +176,7 @@ export default function VideoStream() {
       className="
         relative
         w-full
+        h-140
         overflow-hidden
         rounded-md
         border
@@ -190,8 +189,8 @@ export default function VideoStream() {
         alt="Drone Video Stream"
         className="
           w-full
-          h-[500px]
-          object-cover
+          h-full
+          object-fill
         "
       />
 
@@ -199,7 +198,7 @@ export default function VideoStream() {
       <div
         className="
           absolute
-          top-4
+          bottom-4
           left-4
           px-4
           py-2

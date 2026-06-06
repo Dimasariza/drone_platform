@@ -1,7 +1,7 @@
 import { AppSidebar } from "@/components/shared/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
-export default function FlightControlLayout({
+export default function MissionPlannerLayout({
     children,
 }: Readonly<{
   children: React.ReactNode;
@@ -9,7 +9,7 @@ export default function FlightControlLayout({
   return (
         <SidebarProvider open={false}>
             <AppSidebar />
-            <main>
+            <main className="w-full h-full">
                 {children}
             </main>
         </SidebarProvider>
