@@ -13,7 +13,6 @@ def arm_drone():
             "message": "Drone not connected"
         }
 
-    # vehicle.mode = VehicleMode("GUIDED")
     vehicle.armed = True
 
     return {

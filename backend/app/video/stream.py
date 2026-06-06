@@ -1,4 +1,5 @@
 import cv2
+import time
 
 from app.video.camera import get_frame
 from app.video.processor import process_frame
@@ -6,20 +7,40 @@ from app.video.processor import process_frame
 
 def generate_video_stream():
     while True:
-        frame = get_frame()
+        try:
+            frame = get_frame()
 
-        if frame is None:
-            continue
+            if frame is None:
+                time.sleep(0.01)
+                continue
 
-        frame = process_frame(frame)
+            frame = process_frame(frame)
 
-        _, buffer = cv2.imencode(".jpg", frame)
+            success, buffer = cv2.imencode(
+                ".jpg",
+                frame,
+                [
+                    int(cv2.IMWRITE_JPEG_QUALITY),
+                    80
+                ]
+            )
 
-        frame_bytes = buffer.tobytes()
+            if not success:
+                continue
 
-        yield (
-            b"--frame\r\n"
-            b"Content-Type: image/jpeg\r\n\r\n"
-            + frame_bytes +
-            b"\r\n"
-        )
+            frame_bytes = buffer.tobytes()
+
+            yield (
+                b"--frame\r\n"
+                b"Content-Type: image/jpeg\r\n\r\n"
+                + frame_bytes +
+                b"\r\n"
+            )
+
+        except Exception as e:
+            print(
+                "Video stream error:",
+                str(e)
+            )
+
+            time.sleep(1)
