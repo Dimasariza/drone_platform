@@ -64,8 +64,10 @@ class TelemetrySchema(BaseModel):
 
     last_heartbeat: Optional[float] = None
 
+    # The property is no exist
     flight_time: Optional[float] = None
 
+    # The property is no exist
     timestamp: Optional[float] = None
 
     battery: BatterySchema = BatterySchema()
@@ -78,6 +80,8 @@ class TelemetrySchema(BaseModel):
 
     attitude: AttitudeSchema = AttitudeSchema()
 
+    # The property is no exist
     ekf: EKFSchema = EKFSchema()
 
+    # The property is no exist
     rc_signal: RCSignalSchema = RCSignalSchema()

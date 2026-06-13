@@ -9,7 +9,6 @@ import {
   Polyline,
 } from "react-leaflet"
 
-// Fix for missing marker icons in Next.js/React
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
     "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
@@ -23,10 +22,10 @@ import "leaflet-fullscreen/dist/leaflet.fullscreen.css"
 import { WaypointController } from "@/features/mission-planner/components/WaypointController"
 import { useMissionStore } from "@/features/mission-planner/store/mission-store"
 
-type DroneMapProps = {
+export type DroneMapProps = {
   latitude: number
   longitude: number
-  mapLayer?: string
+  mapLayer?: "google" | "satellite" | "osm" | "offline" // Explicit layer selection type
 }
 
 export default function DroneMap({
@@ -40,19 +39,23 @@ export default function DroneMap({
     setStartPoint,
     setDestinationPoint,
   } = useMissionStore()
-  
+
   const distance =
-  startPoint && destinationPoint
-    ? startPoint.distanceTo(destinationPoint)
-    : 0
+    startPoint && destinationPoint
+      ? startPoint.distanceTo(destinationPoint)
+      : 0
+
+  // Fallback to pointing to localhost port 8000 if your NEXT_PUBLIC environment variable isn't set
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000"
 
   return (
     <MapContainer
       key={"drone-map"}
-      center={[latitude, longitude]}
+      // center={[latitude, longitude]}
+      center={[-7.2504, 112.7688]}
       minZoom={1}
-      maxZoom={21} // Match Google's max zoom limit
-      zoom={18}
+      maxZoom={21}
+      zoom={13} // Adjusted default zoom to typical offline database boundaries
       attributionControl={false}
       className="h-full w-full rounded-md"
     >
@@ -61,7 +64,7 @@ export default function DroneMap({
           <TileLayer
             url="https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
             subdomains={["mt0", "mt1", "mt2", "mt3"]}
-            maxZoom={21} // Google's max zoom level
+            maxZoom={21}
           />
         )
       }
@@ -71,7 +74,7 @@ export default function DroneMap({
           <TileLayer
             url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
             subdomains={["mt0", "mt1", "mt2", "mt3"]}
-            maxZoom={21} // Google's max zoom level
+            maxZoom={21}
           />
         )
       }
@@ -80,12 +83,22 @@ export default function DroneMap({
         mapLayer === "osm" && (
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            maxZoom={19} // OSM's max zoom level
+            maxZoom={19}
           />
         )
       }
 
-      {/* <FullscreenControl /> */}
+      {/* NEW OFFLINE TILE LAYER CONTAINER */}
+      {
+        mapLayer === "offline" && (
+          <TileLayer
+            url={`${backendUrl}/maps/tiles/{z}/{x}/{y}.png`}
+            maxZoom={18} // Match the physical maximum resolution exported in your .sqlitedb file
+            minZoom={1}
+          />
+        )
+      }
+
       <WaypointController />
 
       <Marker position={[latitude, longitude]}>
@@ -94,7 +107,6 @@ export default function DroneMap({
         </Popup>
       </Marker>
 
-
       {startPoint && (
         <Marker
           position={startPoint}
@@ -102,24 +114,16 @@ export default function DroneMap({
           eventHandlers={{
             dragend: (e) => {
               const marker = e.target
-
-              setStartPoint(
-                marker.getLatLng()
-              )
+              setStartPoint(marker.getLatLng())
             },
           }}
         >
           <Popup>
-              <div>
-                <div>Start Waypoint</div>
-                <div>
-                  Lat: {startPoint.lat.toFixed(6)}
-                </div>
-
-                <div>
-                  Lon: {startPoint.lng.toFixed(6)}
-                </div>
-              </div>
+            <div>
+              <div>Start Waypoint</div>
+              <div>Lat: {startPoint.lat.toFixed(6)}</div>
+              <div>Lon: {startPoint.lng.toFixed(6)}</div>
+            </div>
           </Popup>
         </Marker>
       )}
@@ -131,35 +135,23 @@ export default function DroneMap({
           eventHandlers={{
             dragend: (e) => {
               const marker = e.target
-
-              setDestinationPoint(
-                marker.getLatLng()
-              )
+              setDestinationPoint(marker.getLatLng())
             },
           }}
         >
           <Popup>
-              <div>
-                <div>Destination Waypoint</div>
-
-                <div>
-                  Lat: {destinationPoint.lat.toFixed(6)}
-                </div>
-
-                <div>
-                  Lon: {destinationPoint.lng.toFixed(6)}
-                </div>
-              </div>
+            <div>
+              <div>Destination Waypoint</div>
+              <div>Lat: {destinationPoint.lat.toFixed(6)}</div>
+              <div>Lon: {destinationPoint.lng.toFixed(6)}</div>
+            </div>
           </Popup>
         </Marker>
       )}
 
       {startPoint && destinationPoint && (
         <Polyline
-          positions={[
-            startPoint,
-            destinationPoint,
-          ]}
+          positions={[startPoint, destinationPoint]}
           pathOptions={{
             color: "#00ff88",
             weight: 4,

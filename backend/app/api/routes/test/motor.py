@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter
 
-from app.drone.motor_service import test_motor
+from backend.app.drone.tests.motor_service import test_motor
 
 router = APIRouter(prefix="/motor")
 

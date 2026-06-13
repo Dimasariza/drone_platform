@@ -29,19 +29,6 @@ def arm_and_takeoff(target_altitude: float = TAKEOFF_ALTITUDE):
         print("Waiting vehicle to become armable...")
         time.sleep(1)
 
-    # print("Setting GUIDED mode...")
-    # vehicle.mode = VehicleMode("GUIDED")
-
-    # try:
-    #     while True:
-    #         print("Waiting GUIDED mode...")
-    #         time.sleep(1)
-    # except KeyboardInterrupt:
-    #     print("Stopping...")
-    # finally:
-    #     if vehicle:
-    #         vehicle.close()
-
     print("Arming motors...")
     vehicle.armed = True
 

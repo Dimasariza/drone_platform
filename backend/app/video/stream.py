@@ -4,7 +4,6 @@ import time
 from app.video.camera import get_frame
 from app.video.processor import process_frame
 
-
 def generate_video_stream():
     while True:
         try:

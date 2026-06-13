@@ -7,7 +7,6 @@ router = APIRouter(
     tags=["Test"]
 )
 
-
 @router.post("/motor")
 def motor_test():
     arm_and_throttle_increase_test()
