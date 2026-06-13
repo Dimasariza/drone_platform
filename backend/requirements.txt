@@ -28,3 +28,4 @@ ultralytics
 sqlalchemy
 psycopg2-binary
 alembic
+mavsdk==1.4.9

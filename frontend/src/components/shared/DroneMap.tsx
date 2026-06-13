@@ -20,7 +20,6 @@ L.Icon.Default.mergeOptions({
 })
 
 import "leaflet-fullscreen/dist/leaflet.fullscreen.css"
-import FullscreenControl from "../../features/dashboard/components/FullscreenControl"
 import { WaypointController } from "@/features/mission-planner/components/WaypointController"
 import { useMissionStore } from "@/features/mission-planner/store/mission-store"
 
@@ -86,7 +85,7 @@ export default function DroneMap({
         )
       }
 
-      <FullscreenControl />
+      {/* <FullscreenControl /> */}
       <WaypointController />
 
       <Marker position={[latitude, longitude]}>

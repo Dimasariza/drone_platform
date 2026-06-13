@@ -1,30 +1,30 @@
-"use client"
+// "use client"
 
-import { useEffect, useRef } from "react"
+// import { useEffect, useRef } from "react"
 
-import { useMap } from "react-leaflet"
+// import { useMap } from "react-leaflet"
 
-import L from "leaflet"
+// import L from "leaflet"
 
-import "leaflet-fullscreen"
+// import "leaflet-fullscreen"
 
-export default function FullscreenControl() {
-  const map = useMap()
+// export default function FullscreenControl() {
+//   const map = useMap()
 
-  const addedRef = useRef(false)
+//   const addedRef = useRef(false)
 
-  useEffect(() => {
-    if (addedRef.current) return
+//   useEffect(() => {
+//     if (addedRef.current) return
 
-    addedRef.current = true
+//     addedRef.current = true
 
-    // @ts-ignore
-    const fullscreenControl = new L.Control.Fullscreen({
-      position: "topleft",
-    })
+//     // @ts-ignore
+//     const fullscreenControl = new L.Control.Fullscreen({
+//       position: "topleft",
+//     })
 
-    map.addControl(fullscreenControl)
-  }, [map])
+//     map.addControl(fullscreenControl)
+//   }, [map])
 
-  return null
-}
+//   return null
+// }

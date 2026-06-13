@@ -30,8 +30,8 @@ def telemetry_loop():
 
                 if vehicle_instance:
                     set_vehicle(vehicle_instance)
+                    print("Drone connected! Start telemetry...")
 
-                print("Drone connected!")
 
             vehicle = vehicle_instance
 
@@ -230,7 +230,6 @@ def telemetry_loop():
             vehicle_instance = None
 
         time.sleep(0.1)
-
 
 
 # -------------------------

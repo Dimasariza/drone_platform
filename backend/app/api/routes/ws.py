@@ -18,7 +18,7 @@ async def websocket_telemetry(websocket: WebSocket):
                 drone_state.model_dump()
             )
 
-            await asyncio.sleep(1)
+            await asyncio.sleep(0.3)
 
     except WebSocketDisconnect:
         manager.disconnect(websocket)

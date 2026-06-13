@@ -10,8 +10,6 @@ export default function DashboardPage() {
   const { telemetry, connected } =
     useTelemetryStore()
 
-  console.log("Telemetry in DashboardPage:", telemetry)
-
   return (
     <div className="grid grid-cols-12 gap-3 h-screen p-3 bg-linear-to-br from-black via-zinc-900 to-black">
 

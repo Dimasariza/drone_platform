@@ -8,8 +8,8 @@ interface AttitudeIndicatorProps {
 
 export const AttitudeIndicator: React.FC<AttitudeIndicatorProps> = ({ pitch, roll }) => {
   // 1 degree of pitch equals roughly 4 pixels of vertical translation
-  const smoothPitch = useSmoothValue(pitch, 0.08)
-  const smoothRoll = useSmoothValue(roll, 0.08)
+  const smoothPitch = useSmoothValue(pitch, 0.03)
+  const smoothRoll = useSmoothValue(roll, 0.03)
 
   const pitchTranslation = smoothPitch * 4
 
